@@ -1,0 +1,35 @@
+
+
+Vagrant.configure("2") do |config|
+
+  
+(1..2).each do |i|
+  config.vm.define "node-#{i}" do |node|
+    node.vm.hostname = "node-#{i}"	
+    node.vm.box = "centos-7.4-x86_64-minimal"
+    node.vm.network "private_network", ip: "192.168.0.#{i+15}"	    
+    node.vm.provider "virtualbox" do |v|
+	v.name = "node#{i}"	
+	v.customize ["modifyvm", :id, "--memory", 2048]	
+    end    		
+    node.vm.provision "shell", path: "tomcat.sh"
+	#here check for nodes_ip.conf existing is needed
+    node.vm.provision "shell", inline: "echo '\tserver 192.168.0.#{i+15}:8080 ;' >> /vagrant/nodes_ip.conf"	
+  end
+end
+
+
+config.vm.define "web-server" do |web|	  
+	  web.vm.box = "centos-7.4-x86_64-minimal" 
+          web.vm.hostname="web-server"             		 	 
+	  web.vm.network "private_network", ip: "192.168.0.10"
+	  web.vm.provider "virtualbox" do |v| 
+		  v.name = "web-server"
+		  v.customize ["modifyvm", :id, "--memory",1024]
+	  end	
+          web.vm.provision "shell", path: "webserver.sh"  
+	  
+ end
+
+
+end

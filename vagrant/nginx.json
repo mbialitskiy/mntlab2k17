@@ -1,0 +1,11 @@
+{
+  "interface": "enp0s8",
+  "discover": "local",  
+  "event_handlers": [
+    "member-join=/apps/serf/join.sh",
+    "member-leave=/apps/serf/leave.sh"
+  ],
+  "tags": {
+    "role": "lb"
+  }
+}

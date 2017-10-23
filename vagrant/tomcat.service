@@ -1,0 +1,10 @@
+[Unit]
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/apps/tomcat/apache-tomcat-8.5.23/bin/startup.sh
+ExecStop=/apps/tomcat/apache-tomcat-8.5.23/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target

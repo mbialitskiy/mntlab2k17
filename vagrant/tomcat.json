@@ -1,0 +1,7 @@
+{
+  "interface": "enp0s8",
+  "discover": "local",
+  "tags": {
+    "role": "tomcat"
+  }
+}
